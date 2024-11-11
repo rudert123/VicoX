@@ -194,6 +194,8 @@ local function linear_predict(a: any, b: any, time_volume: number)
     return a + (b - a) * time_volume
 end
 
+
+
 function World:get_pointer()
     local mouse_location = UserInputService:GetMouseLocation()
     local ray = workspace.CurrentCamera:ScreenPointToRay(mouse_location.X, mouse_location.Y, 0)
@@ -276,7 +278,7 @@ function AutoParry.get_parry_remote()
 		local temp_remote = game:GetService("VirtualUser"):WaitForChild("\n\n\n\n\n")
 
 		if not temp_remote then
-			continue
+			return
 		end
 
 		if not temp_remote:IsA('RemoteEvent') then
@@ -2126,7 +2128,12 @@ ReplicatedStorage.Remotes.ParrySuccess.OnClientEvent:Connect(function()
 			custom_audio.SoundId = random_sound_id
 			custom_audio:Play()
 		else
-			notify.draw_notify('[Nurysium]: hit sound is missing! add file in Nurysium/assets/hit1.mp3 and Nurysium/assets/hit2.mp3', 15)
+			notify.new({
+        Title = "[Warning]",
+        Description = "Assets Was No Found Id Sound.",
+        Duration = 15,
+        Icon = "rbxassetid://8997385628"
+    })
 		end
 	end
 
@@ -2166,7 +2173,7 @@ local function look_at(primary_part, position, delta, radians)
     primary_part.CFrame = CFrame.lookAt(primary_part.Position, primary_part.Position + lerp_vector)
 end
 
-ConnectionsManager['auto_parry_rotation'] = RunService.PostSimulation:Connect(function()
+ConnectionsManager['auto_parry_rotation'] = RunService.HeartBeat:Connect(function()
 	local auto_parry_rotation_enabled = interface.flags['auto_parry_rotation']
 
 	if not auto_parry_rotation_enabled then
@@ -2214,7 +2221,7 @@ ConnectionsManager['auto_parry_rotation'] = RunService.PostSimulation:Connect(fu
 	look_at(character.PrimaryPart, ball_properties.rotation, auto_parry_rotation_acuity_value, 25)
 end)
 
-ConnectionsManager['auto_parry'] = RunService.PostSimulation:Connect(function()
+ConnectionsManager['auto_parry'] = RunService.HeartBeat:Connect(function()
 	local auto_parry_enabled = interface.flags['auto_parry']
 
 	if not auto_parry_enabled then
