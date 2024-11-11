@@ -1141,117 +1141,137 @@ do
 	})
 end
 
+--// Misc tab
 local TabFrame2 = Windows:NewTab({
-	Title = "Misc",
-	Description = "Here Y'go Misc.",
-	Icon = "rbxassetid://7733960981"
+    Title = "Misc",
+    Description = "Here Y'go Misc.",
+    Icon = "rbxassetid://7733960981"
 })
 
---// Auto Rewards
+--// Auto rewards
 do
-	local auto_rewards = TabFrame2:NewSection({
-		Title = 'Auto Rewards',
-		Flag = 'auto_rewards',
-		Position = 'right' -- Menempatkan modul di sisi kanan
-	})
+    local auto_rewards = TabFrame2:NewSection({
+        Title = "Auto Rewards",
+        Icon = "rbxassetid://7743869054",
+        Position = "Right"
+    })
+
+    auto_rewards:NewToggle({
+        Title = "Enable Auto Rewards",
+        Default = false,
+        Callback = function(tr)
+            print("Auto Rewards Enabled:", tr)
+        end
+    })
 end
 
 --// Strafe
 do
-	local strafe = TabFrame2:NewSection({
-		Title = 'Strafe',
-		Flag = 'strafe',
-		Position = 'left' -- Menempatkan modul di sisi kiri
-	})
+    local strafe = TabFrame2:NewSection({
+        Title = "Strafe",
+        Icon = "rbxassetid://7743869054",
+        Position = "Left"
+    })
 
-	-- Slider untuk mengatur kecepatan strafe
-	local strafe_speed = strafe:NewSlider({
-		Value = 50,
-		Title = 'Speed',
-		Flag = 'strafe_speed' -- Flag untuk slider kecepatan strafe
-	})
+    local strafe_speed = strafe:NewSlider({
+        Title = "Speed",
+        Min = 0,
+        Max = 100,
+        Default = 50,
+        Callback = function(value)
+            print("Strafe Speed:", value)
+        end
+    })
 end
 
---// Personnel Detector
+--// Personnel detector
 do
-	local personnel_detector = TabFrame2:NewSection({
-		Title = 'Personnel Detector',
-		Flag = 'personnel_detector',
-		Position = 'right' -- Menempatkan modul di sisi kanan
-	})
+    local personnel_detector = TabFrame2:NewSection({
+        Title = "Personnel Detector",
+        Icon = "rbxassetid://7743869054",
+        Position = "Right"
+    })
 
-	-- Toggle untuk auto leave
-	local personnel_detector_auto_leave = personnel_detector:NewToggle({
-		Title = 'Auto Leave',
-		Flag = 'personnel_detector_auto_leave' -- Flag untuk toggle Auto Leave
-	})
+    local personnel_detector_auto_leave = personnel_detector:NewToggle({
+        Title = "Enable Auto Leave",
+        Default = false,
+        Callback = function(tr)
+            print("Auto Leave Enabled:", tr)
+        end
+    })
 end
 
 --// Gravity
 do
-	local gravity = TabFrame2:NewSection({
-		Title = 'Gravity',
-		Flag = 'gravity',
-		Position = 'left' -- Menempatkan modul di sisi kiri
-	})
+    local gravity = TabFrame2:NewSection({
+        Title = "Gravity",
+        Icon = "rbxassetid://7743869054",
+        Position = "Left"
+    })
 
-	-- Slider untuk mengatur kekuatan gravitasi
-	local gravity_strength = gravity:NewSlider({
-		Value = 50,
-		Title = 'Gravity Strength',
-		Flag = 'gravity_strength' -- Flag untuk slider kekuatan gravitasi
-	})
+    local gravity_strength = gravity:NewSlider({
+        Title = "Gravity Strength",
+        Min = 0,
+        Max = 100,
+        Default = 50,
+        Callback = function(value)
+            print("Gravity Strength:", value)
+        end
+    })
 end
 
 --// Camera
 do
-	local camera = TabFrame2:NewSection({
-		Title = 'Camera',
-		Flag = 'camera',
-		Position = 'right' -- Menempatkan modul di sisi kanan
-	})
+    local camera = TabFrame2:NewSection({
+        Title = "Camera",
+        Icon = "rbxassetid://7743869054",
+        Position = "Right"
+    })
 
-	-- Slider untuk mengatur Field Of View (FOV)
-	local field_of_view = camera:NewSlider({
-		Value = 70,
-		Title = 'Field Of View',
-		Flag = 'field_of_view' -- Flag untuk slider FOV
-	})
+    local field_of_view = camera:NewSlider({
+        Title = "Field Of View",
+        Min = 0,
+        Max = 100,
+        Default = 70,
+        Callback = function(value)
+            print("Field Of View:", value)
+        end
+    })
 end
 
 --// Ability Vulnerability
 do
-	local ability_vulnerability = TabFrame2:NewSection({
-		Title = 'Ability Vulnerability',
-		Flag = 'ability_vulnerability',
-		Position = 'left' -- Menempatkan modul di sisi kiri
-	})
+    local ability_vulnerability = TabFrame2:NewSection({
+        Title = "Ability Vulnerability",
+        Icon = "rbxassetid://7743869054",
+        Position = "Left"
+    })
 
-	-- Dropdown untuk memilih mode kemampuan
-	local ability_vulnerability_mode = ability_vulnerability:NewDropdown({
-		Title = 'Mode',
-		Flag = 'ability_vulnerability_mode', -- Flag untuk dropdown mode kemampuan
-		Mods = {
-			'Continuity Zero',
-			'Quad Jump',
-			'Quasar' -- Pilihan mode untuk dropdown
-		}
-	})
+    local ability_vulnerability_mode = ability_vulnerability:NewDropdown({
+        Title = "Mode",
+        Data = {"Continuity Zero", "Quad Jump", "Quasar"},
+        Default = "Continuity Zero",
+        Callback = function(value)
+            print("Ability Vulnerability Mode Selected:", value)
+        end
+    })
 end
 
 --// Animations
 do
-	local animations = TabFrame2:NewSection({
-		Title = 'Animations',
-		Flag = 'animations',
-		Position = 'right' -- Menempatkan modul di sisi kanan
-	})
+    local animations = TabFrame2:NewSection({
+        Title = "Animations",
+        Icon = "rbxassetid://7743869054",
+        Position = "Right"
+    })
 
-	-- Toggle untuk smart animations
-	local smart_animations = animations:NewToggle({
-		Title = 'Smart Animations',
-		Flag = 'smart_animations' -- Flag untuk toggle Smart Animations
-	})
+    local smart_animations = animations:NewToggle({
+        Title = "Enable Smart Animations",
+        Default = false,
+        Callback = function(tr)
+            print("Smart Animations Enabled:", tr)
+        end
+    })
 end
 
 local dropdown_emotes_table = {}
