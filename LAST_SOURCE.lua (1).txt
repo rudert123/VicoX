@@ -1288,7 +1288,7 @@ for _, emote in ReplicatedStorage.Misc.Emotes:GetChildren() do
 	emote_instances[emote_name] = emote
 end
 
-local animation_type = animations.create_dropdown({
+local animation_type = animations:NewDropdown({
 	title = 'Animation',
 	flag = 'animation_type',
 	mods = dropdown_emotes_table
