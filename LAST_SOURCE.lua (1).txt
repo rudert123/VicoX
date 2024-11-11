@@ -1289,10 +1289,14 @@ for _, emote in ReplicatedStorage.Misc.Emotes:GetChildren() do
 end
 
 local animation_type = animations:NewDropdown({
-	title = 'Animation',
-	flag = 'animation_type',
-	mods = dropdown_emotes_table
-})
+        Title = "Animation",
+        Data = dropdown_emotes_table,  -- Dropdown options populated with emote names
+        Default = dropdown_emotes_table[1],  -- Default to the first emote name
+        Callback = function(value)
+            print("Animation Selected:", value)  -- Action when an emote is selected
+        end
+    })
+end
 
 LocalPlayer.Idled:Connect(function()
 	VirtualUser:CaptureController()
