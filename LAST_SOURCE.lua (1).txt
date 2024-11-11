@@ -2361,11 +2361,20 @@ task.delay(30, function()
 
 	local player_ping = Player.Entity.properties.ping
 
-    if player_ping > 100 and player_ping < 200 then
-        notify.draw_notify('[Warning]: Low connection speed, delays may occur.', 15)
-    end
-
-    if player_ping >= 200 then
-        notify.draw_notify('[Warning]: Critically slow connection speed, delays ensured.', 15)
-    end
+-- Cek koneksi pemain dan tampilkan notifikasi sesuai dengan ping
+if player_ping > 100 and player_ping < 200 then
+    Notification.new({
+        Title = "[Warning]",
+        Description = "Low connection speed, delays may occur.",
+        Duration = 5,
+        Icon = "rbxassetid://8997385628"
+    })
+elseif player_ping >= 200 then
+    Notification.new({
+        Title = "[Warning]",
+        Description = "Critically slow connection speed, delays ensured.",
+        Duration = 5,
+        Icon = "rbxassetid://8997385628"
+    })
+   end
 end)
