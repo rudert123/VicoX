@@ -1141,117 +1141,116 @@ do
 	})
 end
 
-local misc = Windows:NewTab({
+local TabFrame2 = Windows:NewTab({
 	Title = "Misc",
 	Description = "Here Y'go Misc.",
 	Icon = "rbxassetid://7733960981"
 })
 
---// auto rewards
-
+-- Membuat modul Auto Rewards
 do
-	local auto_rewards = misc.create_module({
+	local auto_rewards = TabFrame2:create_module({
 		text = 'Auto Rewards',
 		flag = 'auto_rewards',
-		side = 'right'
-	})	
+		side = 'right' -- Menempatkan modul di sisi kanan
+	})
 end
 
---// strafe
-
+-- Membuat modul Strafe
 do
-	local strafe = misc.create_module({
+	local strafe = TabFrame2:create_module({
 		text = 'Strafe',
 		flag = 'strafe',
-		side = 'left'
-	})	
-	
-	local strafe_speed = strafe.create_slider({
+		side = 'left' -- Menempatkan modul di sisi kiri
+	})
+
+	-- Slider untuk mengatur kecepatan Strafe
+	local strafe_speed = strafe:create_slider({
 		value = 50,
 		title = 'Speed',
-		flag = 'strafe_speed'
+		flag = 'strafe_speed' -- Flag untuk slider kecepatan Strafe
 	})
 end
 
---// personnel detector
-
+-- Membuat modul Personnel Detector
 do
-	local personnel_detector = misc.create_module({
+	local personnel_detector = TabFrame2:create_module({
 		text = 'Personnel Detector',
 		flag = 'personnel_detector',
-		side = 'right'
+		side = 'right' -- Menempatkan modul di sisi kanan
 	})
-	
-	local personnel_detector_auto_leave = personnel_detector.create_toggle({
+
+	-- Toggle untuk auto leave
+	local personnel_detector_auto_leave = personnel_detector:create_toggle({
 		title = 'Auto Leave',
-		flag = 'personnel_detector_auto_leave'
+		flag = 'personnel_detector_auto_leave' -- Flag untuk toggle Auto Leave
 	})
 end
 
---// gravity
-
+-- Membuat modul Gravity
 do
-	local gravity = misc.create_module({
+	local gravity = TabFrame2:create_module({
 		text = 'Gravity',
 		flag = 'gravity',
-		side = 'left'
+		side = 'left' -- Menempatkan modul di sisi kiri
 	})
-	
-	local gravity_strength = gravity.create_slider({
+
+	-- Slider untuk mengatur kekuatan gravitasi
+	local gravity_strength = gravity:create_slider({
 		value = 50,
-		title = 'Gravity',
-		flag = 'gravity_strength'
+		title = 'Gravity Strength',
+		flag = 'gravity_strength' -- Flag untuk slider kekuatan gravitasi
 	})
 end
 
---// camera
-
+-- Membuat modul Camera
 do
-	local camera = misc.create_module({
+	local camera = TabFrame2:create_module({
 		text = 'Camera',
 		flag = 'camera',
-		side = 'right'
+		side = 'right' -- Menempatkan modul di sisi kanan
 	})
-	
-	local field_of_view = camera.create_slider({
+
+	-- Slider untuk mengatur Field Of View (FOV)
+	local field_of_view = camera:create_slider({
 		value = 70,
 		title = 'Field Of View',
-		flag = 'field_of_view'
+		flag = 'field_of_view' -- Flag untuk slider FOV
 	})
 end
 
---// ability vulnerability
-
+-- Membuat modul Ability Vulnerability
 do
-	local ability_vulnerability = misc.create_module({
+	local ability_vulnerability = TabFrame2:create_module({
 		text = 'Ability Vulnerability',
 		flag = 'ability_vulnerability',
-		side = 'left'
+		side = 'left' -- Menempatkan modul di sisi kiri
 	})
-	
-	local ability_vulnerability_mode = ability_vulnerability.create_dropdown({
+
+	-- Dropdown untuk memilih mode kemampuan
+	local ability_vulnerability_mode = ability_vulnerability:create_dropdown({
 		title = 'Mode',
-		flag = 'ability_vulnerability_mode',
+		flag = 'ability_vulnerability_mode', -- Flag untuk dropdown mode kemampuan
 		mods = {
 			'Continuity Zero',
 			'Quad Jump',
-			'Quasar'
+			'Quasar' -- Pilihan mode untuk dropdown
 		}
-	})	
+	})
 end
 
---// animations
-
+-- Membuat modul Animations
 do
-	local animations = misc.create_module({
+	local animations = TabFrame2:create_module({
 		text = 'Animations',
 		flag = 'animations',
-		side = 'right'
+		side = 'right' -- Menempatkan modul di sisi kanan
 	})
 
-	local smart_animations = animations.create_toggle({
-		title = 'Smart',
-		flag = 'smart_animations'
+	-- Toggle untuk smart animations
+	local smart_animations = animations:create_toggle({
+		title = 'Smart Animations',
+		flag = 'smart_animations' -- Flag untuk toggle Smart Animations
 	})
 end
 
