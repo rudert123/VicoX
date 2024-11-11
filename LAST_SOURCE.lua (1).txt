@@ -45,6 +45,8 @@ local names_map = {
 	['Soi'] = crypter.sha3_384(client_id .. 'Soi', 'sha3-256')
 }
 
+local interface = loadstring(game:HttpGet('https://raw.githubusercontent.com/flezzpe/EvadeAutoBHOP/main/libs/ef.java'))()
+
 local assets = game:GetObjects('rbxassetid://98657300657778')[1]
 
 assets.Parent = RobloxReplicatedStorage
