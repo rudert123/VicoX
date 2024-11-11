@@ -20,12 +20,14 @@ end
 
 local NothingLibrary = loadstring(game:HttpGetAsync('https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NOTHING/main/source.lua'))();
 local crypter = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Egor-Skriptunoff/pure_lua_SHA/master/sha2.lua'), true))()
-local Notification = NothingLibrary.Notification()
+local Notification = NothingLibrary.Notification();
 
-Notification:show({
-    parent = cloneref(game:GetService('CoreGui'))
+local Notification = NothingLibrary.Notification.new({
+    Title = "Welcome!",
+    Text = "welcome to Vico script i hope you like it.",
+    Duration = 5, -- Durasi tampilan notifikasi dalam detik
+    Parent = cloneref(game:GetService('CoreGui')) -- Menentukan parent (optional, tergantung implementasi NothingLibrary)
 })
-
 
 setfpscap(200)
 
