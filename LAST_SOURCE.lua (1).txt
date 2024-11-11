@@ -812,42 +812,45 @@ local TabFrame = Windows:NewTab({
 --// auto parry section
 
 do
-	local AutoSection = TabFrame:NewSection({
-		Title = "Parry",
-		Icon = "rbxassetid://7743869054",
-		Position = "Left"
-	})
+    local AutoSection = TabFrame:NewSection({
+        Title = "Parry",
+        Icon = "rbxassetid://7743869054",
+        Position = "Left"
+    })
 
-	-- Toggle for auto parry rotation
-	AutoSection:NewToggle({
-		Title = "Rotation",
-		Default = false,
-		Callback = function(tr)
-			print("Auto Parry Rotation:", tr)
-		end
-	})
+    -- Toggle for auto parry rotation
+    AutoSection:NewToggle({
+        Title = "Rotation",
+        Default = false,  -- Nilai default toggle (false = nonaktif, true = aktif)
+        Callback = function(tr)
+            -- Mengubah nilai interface.flags['auto_parry'] berdasarkan status toggle
+            interface.flags['auto_parry'] = tr  -- tr adalah nilai boolean (true/false)
+            print("Auto Parry Rotation/parry:", tr)
+        end
+    })
 
-	-- Slider for auto parry rotation acuity
-	AutoSection:NewSlider({
-		Title = "Acuity",
-		Min = 1,
-		Max = 10,
-		Default = 5,
-		Callback = function(value)
-			print("Auto Parry Rotation Acuity:", value)
-		end
-	})
+    -- Slider for auto parry rotation acuity
+    AutoSection:NewSlider({
+        Title = "Acuity",
+        Min = 1,
+        Max = 10,
+        Default = 5,
+        Callback = function(value)
+            print("Auto Parry Rotation Acuity:", value)
+        end
+    })
 
-	-- Dropdown for selecting curve method
-	AutoSection:NewDropdown({
-		Title = "Curve Method",
-		Data = {"Accelerated", "Backwards", "Linear", "Camera", "Random"},
-		Default = "Linear",
-		Callback = function(selected)
-			print("Selected Curve Method:", selected)
-		end
-	})
+    -- Dropdown for selecting curve method
+    AutoSection:NewDropdown({
+        Title = "Curve Method",
+        Data = {"Accelerated", "Backwards", "Linear", "Camera", "Random"},
+        Default = "Linear",
+        Callback = function(selected)
+            print("Selected Curve Method:", selected)
+        end
+    })
 end
+
 
 --// Win Sound
 
