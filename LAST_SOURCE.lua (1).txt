@@ -1151,16 +1151,16 @@ local TabFrame2 = Windows:NewTab({
 --// Auto rewards
 do
     local auto_rewards = TabFrame2:NewSection({
-        Title = "Auto Rewards",
-        Icon = "rbxassetid://7743869054",
-        Position = "Right"
+        Title = 'Auto Rewards',
+        Icon = 'rbxassetid://7743869054',
+        Position = 'right'
     })
-
+    
     auto_rewards:NewToggle({
         Title = "Enable Auto Rewards",
         Default = false,
-        Callback = function(tr)
-            print("Auto Rewards Enabled:", tr)
+        Callback = function(value)
+            print("Auto Rewards toggled:", value)
         end
     })
 end
@@ -1168,14 +1168,14 @@ end
 --// Strafe
 do
     local strafe = TabFrame2:NewSection({
-        Title = "Strafe",
-        Icon = "rbxassetid://7743869054",
-        Position = "Left"
+        Title = 'Strafe',
+        Icon = 'rbxassetid://7743869054',
+        Position = 'left'
     })
 
     local strafe_speed = strafe:NewSlider({
-        Title = "Speed",
-        Min = 0,
+        Title = 'Speed',
+        Min = 1,
         Max = 100,
         Default = 50,
         Callback = function(value)
@@ -1187,16 +1187,16 @@ end
 --// Personnel detector
 do
     local personnel_detector = TabFrame2:NewSection({
-        Title = "Personnel Detector",
-        Icon = "rbxassetid://7743869054",
-        Position = "Right"
+        Title = 'Personnel Detector',
+        Icon = 'rbxassetid://7743869054',
+        Position = 'right'
     })
 
-    local personnel_detector_auto_leave = personnel_detector:NewToggle({
-        Title = "Enable Auto Leave",
+    personnel_detector:NewToggle({
+        Title = 'Auto Leave',
         Default = false,
-        Callback = function(tr)
-            print("Auto Leave Enabled:", tr)
+        Callback = function(value)
+            print("Auto Leave toggled:", value)
         end
     })
 end
@@ -1204,14 +1204,14 @@ end
 --// Gravity
 do
     local gravity = TabFrame2:NewSection({
-        Title = "Gravity",
-        Icon = "rbxassetid://7743869054",
-        Position = "Left"
+        Title = 'Gravity',
+        Icon = 'rbxassetid://7743869054',
+        Position = 'left'
     })
 
     local gravity_strength = gravity:NewSlider({
-        Title = "Gravity Strength",
-        Min = 0,
+        Title = 'Gravity Strength',
+        Min = 1,
         Max = 100,
         Default = 50,
         Callback = function(value)
@@ -1223,15 +1223,15 @@ end
 --// Camera
 do
     local camera = TabFrame2:NewSection({
-        Title = "Camera",
-        Icon = "rbxassetid://7743869054",
-        Position = "Right"
+        Title = 'Camera',
+        Icon = 'rbxassetid://7743869054',
+        Position = 'right'
     })
 
     local field_of_view = camera:NewSlider({
-        Title = "Field Of View",
-        Min = 0,
-        Max = 100,
+        Title = 'Field Of View',
+        Min = 10,
+        Max = 120,
         Default = 70,
         Callback = function(value)
             print("Field Of View:", value)
@@ -1239,14 +1239,14 @@ do
     })
 end
 
---// Ability Vulnerability
+--// Ability vulnerability
 do
     local ability_vulnerability = TabFrame2:NewSection({
-        Title = "Ability Vulnerability",
-        Icon = "rbxassetid://7743869054",
-        Position = "Left"
+        Title = 'Ability Vulnerability',
+        Icon = 'rbxassetid://7743869054',
+        Position = 'left'
     })
-
+    
     local ability_vulnerability_mode = ability_vulnerability:NewDropdown({
         Title = "Mode",
         Data = {"Continuity Zero", "Quad Jump", "Quasar"},
@@ -1256,6 +1256,184 @@ do
         end
     })
 end
+
+--// Animations
+do
+    local animations = TabFrame2:NewSection({
+        Title = 'Animations',
+        Icon = 'rbxassetid://7743869054',
+        Position = 'right'
+    })
+
+    local smart_animations = animations:NewToggle({
+        Title = 'Smart Animations',
+        Default = false,
+        Callback = function(value)
+            print("Smart Animations toggled:", value)
+        end
+    })
+
+    -- Ensure emote dropdown is populated correctly
+    local dropdown_emotes_table = {}
+    local emote_instances = {}
+
+    if ReplicatedStorage and ReplicatedStorage.Misc and ReplicatedStorage.Misc.Emotes then
+        for _, emote in ipairs(ReplicatedStorage.Misc.Emotes:GetChildren()) do
+            local emote_name = emote:GetAttribute('EmoteName')
+
+            if emote_name then
+                table.insert(dropdown_emotes_table, emote_name)
+                emote_instances[emote_name] = emote
+            end
+        end
+    else
+        warn("ReplicatedStorage.Misc.Emotes not found!")
+    end
+
+    -- Check if emote dropdown exists before creating it
+    if #dropdown_emotes_table > 0 then
+        local animation_type = animations:NewDropdown({
+            Title = "Animation",
+            Data = dropdown_emotes_table,
+            Default = dropdown_emotes_table[1],  -- Default to the first choice if available
+            Callback = function(value)
+                print("Animation Selected:", value)
+            end
+        })
+    else
+        warn("No emotes found for dropdown!")
+    end
+end
+
+-- Handling Idle state
+LocalPlayer.Idled:Connect(function()
+    VirtualUser:CaptureController()
+    VirtualUser:ClickButton2(Vector2.zero)
+end)
+
+local current_animation = nil
+local current_animation_name = nil
+
+local looped_emotes = {
+    "Emote108",
+    "Emote225",
+    "Emote300",
+    "Emote301"
+}
+
+ConnectionsManager['animations'] = RunService.Heartbeat:Connect(function()
+	local character = LocalPlayer.Character
+
+	if not character then
+		if current_animation then
+			current_animation:Stop()
+			current_animation:Destroy()
+		end
+
+		current_animation = nil
+		current_animation_name = nil
+
+		return
+	end
+
+	local humanoid = character:FindFirstChildOfClass('Humanoid')
+
+	if not humanoid or humanoid.Health <= 0 then
+		if current_animation then
+			current_animation:Stop()
+			current_animation:Destroy()
+		end
+
+		current_animation = nil
+		current_animation_name = nil
+
+		return
+	end
+
+	local animations_enabled = interface.flags['animations']
+	local animation_type = interface.flags['animation_type']
+
+	if not animations_enabled then
+		if current_animation then
+			current_animation:Stop()
+			current_animation:Destroy()
+			current_animation = nil
+			current_animation_name = nil
+		end
+
+		return
+	end
+
+	local smart_animations_enabled = interface.flags['smart_animations']
+
+	if smart_animations_enabled and Player.Entity.properties.is_moving then
+		if current_animation then
+			current_animation:Stop()
+			current_animation:Destroy()
+			current_animation = nil
+			current_animation_name = nil
+		end
+		return
+	end
+
+	if not animation_type or current_animation_name == animation_type then
+		return
+	end
+
+	if current_animation then
+		current_animation:Stop()
+		current_animation:Destroy()
+		current_animation = nil
+		current_animation_name = nil
+	end
+
+	local animation_object = emote_instances[animation_type]
+
+	if not animation_object then
+		return
+	end
+
+	local animator = humanoid:FindFirstChildOfClass('Animator')
+
+	if not animator then
+		if current_animation then
+			current_animation:Stop()
+			current_animation:Destroy()
+		end	
+
+		current_animation = nil
+		current_animation_name = nil
+
+		return
+	end
+
+	local animation = Instance.new('Animation')
+	animation.AnimationId = animation_object.AnimationId
+
+	current_animation = animator:LoadAnimation(animation)
+	current_animation_name = animation_type
+
+	if not table.find(looped_emotes, animation_object.Name) then
+		current_animation.Looped = true
+	end
+
+	local time_position = {}
+
+	current_animation:GetMarkerReachedSignal('Pin'):Connect(function(state)
+		time_position[state] = current_animation.TimePosition
+	end)
+
+	current_animation:GetMarkerReachedSignal('GOTO'):Connect(function(state)
+		local current_time_position = time_position[state]
+
+		if current_time_position then
+			current_animation.TimePosition = current_time_position
+		end
+	end)
+
+	ReplicatedStorage.Remotes.CustomEmote:FireServer(true, animation_object.Name)
+	current_animation:Play()
+end)
 
 ConnectionsManager['camera_field_of_view'] = RunService.PostSimulation:Connect(function()
 	if not workspace.CurrentCamera then
