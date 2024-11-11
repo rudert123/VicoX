@@ -2363,14 +2363,14 @@ task.delay(30, function()
 
 -- Cek koneksi pemain dan tampilkan notifikasi sesuai dengan ping
 if player_ping > 100 and player_ping < 200 then
-    Notification.new({
+    notify.new({
         Title = "[Warning]",
         Description = "Low connection speed, delays may occur.",
         Duration = 5,
         Icon = "rbxassetid://8997385628"
     })
 elseif player_ping >= 200 then
-    Notification.new({
+    notify.new({
         Title = "[Warning]",
         Description = "Critically slow connection speed, delays ensured.",
         Duration = 5,
