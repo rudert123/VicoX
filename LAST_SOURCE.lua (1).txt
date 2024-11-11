@@ -20,14 +20,13 @@ end
 
 local NothingLibrary = loadstring(game:HttpGetAsync('https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NOTHING/main/source.lua'))();
 local crypter = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Egor-Skriptunoff/pure_lua_SHA/master/sha2.lua'), true))()
-local Notification = NothingLibrary.Notification();
+local notify = NothingLibrary.Notification();
 
-Notification.new({
+notify.new({
         Title = "VicoX Is Fetch.",
 	Description = "welcome to Vico script i hope you like it",
 	Duration = 5,
 	Icon = "rbxassetid://8997385628"
-        Parent = cloneref(game:GetService('CoreGui'))
 })
 
 setfpscap(200)
