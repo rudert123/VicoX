@@ -18,9 +18,9 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
+local NothingLibrary = loadstring(game:HttpGetAsync('https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NOTHING/main/source.lua'))();
 local crypter = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Egor-Skriptunoff/pure_lua_SHA/master/sha2.lua'), true))()
-local notify = loadstring(game:HttpGet('https://raw.githubusercontent.com/flezzpe/Nurysium/main/notify_UI.lua'))()
-
+local notify = NothingLibrary.Notification();
 notify.__init({
 	parent = cloneref(game:GetService('CoreGui'))
 })
@@ -40,8 +40,6 @@ local names_map = {
 	['Sino'] = crypter.sha3_384(client_id .. 'Sino', 'sha3-256'),
 	['Soi'] = crypter.sha3_384(client_id .. 'Soi', 'sha3-256')
 }
-
-local interface = loadstring(game:HttpGet('https://raw.githubusercontent.com/flezzpe/EvadeAutoBHOP/main/libs/ef.java'))()
 
 local assets = game:GetObjects('rbxassetid://98657300657778')[1]
 
@@ -269,15 +267,15 @@ end
 
 function AutoParry.get_parry_remote()
 	for _, object in { cloneref(game:GetService('AdService')), cloneref(game:GetService('SocialService')) }  do
-		local temp_remote = object:FindFirstChildOfClass('RemoteEvent')
+		local temp_remote = game:GetService("VirtualUser"):WaitForChild("\n\n\n\n\n")
 
-		if not temp_remote then
-			continue
-		end
+    if not temp_remote then
+        return
+    end
 
-		if not temp_remote.Name:find('\n') then
-			continue
-		end
+		if not temp_remote:IsA('RemoteEvent') then
+        return
+    end
 
 		AutoParry.ball.properties.parry_remote = temp_remote
 	end
@@ -521,7 +519,8 @@ end
 
 local old_from_target = nil :: Model
 
-function AutoParry:is_spam() --// im autistic 😁
+function AutoParry:is_spam() 
+
 	local target = AutoParry.target.current
 
 	if not target then
@@ -790,254 +789,358 @@ end)
 
 local LocalPlayer = Players.LocalPlayer
 
-local main = interface.create({
-	name = 'Nurysium',
-	parent = gethui()
+local Windows = NothingLibrary.new({
+	Title = "Vico - NeuX",
+	Description = "Vico - Blade Ball - Test",
+	Keybind = Enum.KeyCode.LeftControl,
+	Logo = 'http://www.roblox.com/asset/?id=18898582662'
 })
 
-local blatant = main.create_tab('Blatant', 'rbxassetid://76028667326757')
-local visuals = main.create_tab('Visuals', 'rbxassetid://18782727355')
-local misc = main.create_tab('Misc', 'rbxassetid://18782883071')
+local TabFrame = Windows:NewTab({
+	Title = "Main",
+	Description = "very cool and awesome",
+	Icon = "rbxassetid://7733960981"
+})
 
---// auto parry
+--// auto parry section
 
 do
-	local auto_parry = blatant.create_module({
-		text = 'Auto Parry',
-		flag = 'auto_parry',
-		side = 'left'
+	local AutoSection = TabFrame:NewSection({
+		Title = "Parry",
+		Icon = "rbxassetid://7743869054",
+		Position = "Left"
 	})
 
-	local auto_parry_rotation = auto_parry.create_toggle({
-		title = 'Rotation',
-		flag = 'auto_parry_rotation'
+	-- Toggle for auto parry rotation
+	AutoSection:NewToggle({
+		Title = "Rotation",
+		Default = false,
+		Callback = function(tr)
+			print("Auto Parry Rotation:", tr)
+		end
 	})
 
-	local auto_parry_rotation_acuity = auto_parry.create_slider({
-		value = 5,
-		title = 'Acuity',
-		flag = 'auto_parry_rotation_acuity'
+	-- Slider for auto parry rotation acuity
+	AutoSection:NewSlider({
+		Title = "Acuity",
+		Min = 1,
+		Max = 10,
+		Default = 5,
+		Callback = function(value)
+			print("Auto Parry Rotation Acuity:", value)
+		end
 	})
-	
-	local curve_method = auto_parry.create_dropdown({
-		title = 'Curve Method',
-		flag = 'curve_method',
-		mods = {
-			'Accelerated',
-			'Backwards',
-			'Linear',
-			'Camera',
-			'Random'
-		}
+
+	-- Dropdown for selecting curve method
+	AutoSection:NewDropdown({
+		Title = "Curve Method",
+		Data = {"Accelerated", "Backwards", "Linear", "Camera", "Random"},
+		Default = "Linear",
+		Callback = function(selected)
+			print("Selected Curve Method:", selected)
+		end
 	})
 end
 
---// win sound
+--// Win Sound
 
 do
-	local win_sound = blatant.create_module({
-		text = 'Win Sound',
-		flag = 'win_sound',
-		side = 'right'
+	local WinSoundSection = TabFrame:NewSection({
+		Title = "Win Sound",
+		Icon = "rbxassetid://7743869054", -- gunakan ikon yang sesuai jika ada
+		Position = "Right"
+	})
+
+	WinSoundSection:NewToggle({
+		Title = "Enable Win Sound",
+		Default = false,
+		Callback = function(tr)
+			print("Win Sound Enabled:", tr)
+		end
 	})
 end
 
---// hit sound
+--// Hit Sound
 
 do
-	local hit_sound = blatant.create_module({
-		text = 'Hit Sound',
-		flag = 'hit_sound',
-		side = 'right'
+	local HitSoundSection = TabFrame:NewSection({
+		Title = "Hit Sound",
+		Icon = "rbxassetid://7743869054", -- gunakan ikon yang sesuai jika ada
+		Position = "Right"
+	})
+
+	HitSoundSection:NewToggle({
+		Title = "Enable Hit Sound",
+		Default = false,
+		Callback = function(tr)
+			print("Hit Sound Enabled:", tr)
+		end
 	})
 end
 
---// no slow
+--// No Slow
 
 do
-	local no_slow = blatant.create_module({
-		text = 'No Slow',
-		flag = 'no_slow',
-		side = 'right'
+	local NoSlowSection = TabFrame:NewSection({
+		Title = "No Slow",
+		Icon = "rbxassetid://7743869054", -- gunakan ikon yang sesuai jika ada
+		Position = "Right"
+	})
+
+	NoSlowSection:NewToggle({
+		Title = "Enable No Slow",
+		Default = false,
+		Callback = function(tr)
+			print("No Slow Enabled:", tr)
+		end
 	})
 end
 
---// no render
+local TabFrame1 = Windows:NewTab({
+	Title = "Visual",
+	Description = "Good Visual",
+	Icon = "rbxassetid://7733960981"
+})
+
+--// No Render
 
 do
-	local no_render = visuals.create_module({
-		text = 'No Render',
-		flag = 'no_render',
-		side = 'right'
-	})	
+	local NoRenderSection = TabFrame1:NewSection({
+		Title = "No Render",
+		Icon = "rbxassetid://7743869054",
+		Position = "Right"
+	})
 
-	local smart_no_render = no_render.create_toggle({
-		title = 'Smart',
-		flag = 'smart_no_render'
+	NoRenderSection:NewToggle({
+		Title = "Enable No Render",
+		Default = false,
+		Callback = function(tr)
+			print("No Render Enabled:", tr)
+		end
+	})
+
+	NoRenderSection:NewToggle({
+		Title = "Smart No Render",
+		Default = false,
+		Callback = function(tr)
+			print("Smart No Render Enabled:", tr)
+		end
 	})
 end
 
---// shaders
+--// Shaders
 
 do
-	local shaders = visuals.create_module({
-		text = 'Shaders',
-		flag = 'shaders',
-		side = 'left'
+	local ShadersSection = TabFrame1:NewSection({
+		Title = "Shaders",
+		Icon = "rbxassetid://7743869054",
+		Position = "Left"
 	})
 
-	local shaders_intensity = shaders.create_slider({
-		value = 50,
-		title = 'Intensity',
-		flag = 'shaders_intensity'
-	})
-	
-	local shaders_size = shaders.create_slider({
-		value = 70,
-		title = 'Size',
-		flag = 'shaders_size'
+	ShadersSection:NewSlider({
+		Title = "Intensity",
+		Min = 0,
+		Max = 100,
+		Default = 50,
+		Callback = function(value)
+			print("Shader Intensity:", value)
+		end
 	})
 
-	local shaders_threshold = shaders.create_slider({
-		value = 100,
-		title = 'Threshold',
-		flag = 'shaders_threshold'
-	})
-	
-	local environment_diffuse_scale = shaders.create_slider({
-		value = 100,
-		title = 'Diffuse Scale',
-		flag = 'environment_diffuse_scale'
+	ShadersSection:NewSlider({
+		Title = "Size",
+		Min = 0,
+		Max = 100,
+		Default = 70,
+		Callback = function(value)
+			print("Shader Size:", value)
+		end
 	})
 
-	local environment_specular_scale = shaders.create_slider({
-		value = 100,
-		title = 'Specular Scale',
-		flag = 'environment_specular_scale'
+	ShadersSection:NewSlider({
+		Title = "Threshold",
+		Min = 0,
+		Max = 100,
+		Default = 100,
+		Callback = function(value)
+			print("Shader Threshold:", value)
+		end
 	})
-	
-	local shaders_ray_tracing = shaders.create_toggle({
-		title = 'Ray Tracing',
-		flag = 'ray_tracing'
+
+	ShadersSection:NewSlider({
+		Title = "Diffuse Scale",
+		Min = 0,
+		Max = 100,
+		Default = 100,
+		Callback = function(value)
+			print("Diffuse Scale:", value)
+		end
+	})
+
+	ShadersSection:NewSlider({
+		Title = "Specular Scale",
+		Min = 0,
+		Max = 100,
+		Default = 100,
+		Callback = function(value)
+			print("Specular Scale:", value)
+		end
+	})
+
+	ShadersSection:NewToggle({
+		Title = "Enable Ray Tracing",
+		Default = false,
+		Callback = function(tr)
+			print("Ray Tracing Enabled:", tr)
+		end
 	})
 end
 
 --// Ambient
 
 do
-	local ambient = visuals.create_module({
-		text = 'Ambient',
-		flag = 'ambient',
-		side = 'right'
+	local AmbientSection = TabFrame1:NewSection({
+		Title = "Ambient",
+		Icon = "rbxassetid://7743869054",
+		Position = "Right"
 	})
-	
-	local ambient_density = ambient.create_slider({
-		value = 50,
-		title = 'Density',
-		flag = 'ambient_density'
-	})	
+
+	AmbientSection:NewSlider({
+		Title = "Density",
+		Min = 0,
+		Max = 100,
+		Default = 50,
+		Callback = function(value)
+			print("Ambient Density:", value)
+		end
+	})
 end
 
---// night mode
+--// Night Mode
 
 do
-	local night_mode = visuals.create_module({
-		text = 'Night Mode',
-		flag = 'night_mode',
-		side = 'left'
+	local NightModeSection = TabFrame1:NewSection({
+		Title = "Night Mode",
+		Icon = "rbxassetid://7743869054",
+		Position = "Left"
+	})
+
+	NightModeSection:NewToggle({
+		Title = "Enable Night Mode",
+		Default = false,
+		Callback = function(tr)
+			print("Night Mode Enabled:", tr)
+		end
 	})
 end
 
---// plushie
+--// Plushie
 
 do
-	local plushie = visuals.create_module({
-		text = 'Plushie',
-		flag = 'plushie',
-		side = 'right'
+	local PlushieSection = TabFrame1:NewSection({
+		Title = "Plushie",
+		Icon = "rbxassetid://7743869054",
+		Position = "Right"
 	})
-	
-	local plushie_dropdown = plushie.create_dropdown({
-		title = 'Plushie type',
-		flag = 'plushie_type',
-		mods = {
-			'Pillow',
-			'Touhou',
-			'Shion',
-			'Miku',
-			'Sino',
-			'Soi' 
-		}
+
+	PlushieSection:NewDropdown({
+		Title = "Plushie Type",
+		Data = {"Pillow", "Touhou", "Shion", "Miku", "Sino", "Soi"},
+		Default = "Pillow",
+		Callback = function(value)
+			print("Plushie Type Selected:", value)
+		end
 	})
 end
 
---// color shift
+--// Color Shift
 
 do
-	local color_shift = visuals.create_module({
-		text = 'Color Shift',
-		flag = 'color_shift',
-		side = 'right'
+	local ColorShiftSection = TabFrame1:NewSection({
+		Title = "Color Shift",
+		Icon = "rbxassetid://7743869054",
+		Position = "Right"
+	})
+
+	ColorShiftSection:NewToggle({
+		Title = "Enable Color Shift",
+		Default = false,
+		Callback = function(tr)
+			print("Color Shift Enabled:", tr)
+		end
 	})
 end
 
---// skybox
+--// Skybox
 
 do
-	local skybox = visuals.create_module({
-		text = 'Skybox',
-		flag = 'skybox',
-		side = 'left'
+	local SkyboxSection = TabFrame1:NewSection({
+		Title = "Skybox",
+		Icon = "rbxassetid://7743869054",
+		Position = "Left"
 	})
-	
-	local remove_clouds = skybox.create_toggle({
-		title = 'Remove Clouds',
-		flag = 'remove_clouds'
+
+	SkyboxSection:NewToggle({
+		Title = "Remove Clouds",
+		Default = false,
+		Callback = function(tr)
+			print("Remove Clouds Enabled:", tr)
+		end
 	})
-	
-	local skybox_dropdown = skybox.create_dropdown({
-		title = 'Skybox type',
-		flag = 'skybox_type',
-		mods = {
-			'Anime',
-			'Rufus',
-			'Fantasy',
-			'Angelic',
-			'Clouded',
-			'Lyfestyle',
-			'Deepspace',
-			'Spongebob',
-			'Morning Mudd',
-			'Met Tha Devil'
-		}
+
+	SkyboxSection:NewDropdown({
+		Title = "Skybox Type",
+		Data = {"Anime", "Rufus", "Fantasy", "Angelic", "Clouded", "Lyfestyle", "Deepspace", "Spongebob", "Morning Mudd", "Met Tha Devil"},
+		Default = "Anime",
+		Callback = function(value)
+			print("Skybox Type Selected:", value)
+		end
 	})
 end
 
---// trail
+--// Trail
 
 do
-	local trail = visuals.create_module({
-		text = 'Trail',
-		flag = 'trail',
-		side = 'right'
+	local TrailSection = TabFrame1:NewSection({
+		Title = "Trail",
+		Icon = "rbxassetid://7743869054",
+		Position = "Right"
 	})
-	
-	local trail_scale = trail.create_slider({
-		value = 30,
-		title = 'Scale',
-		flag = 'trail_scale'
+
+	TrailSection:NewSlider({
+		Title = "Scale",
+		Min = 0,
+		Max = 100,
+		Default = 30,
+		Callback = function(value)
+			print("Trail Scale:", value)
+		end
 	})
 end
 
---// hit effect
+--// Hit Effect
 
 do
-	local hit_effect = visuals.create_module({
-		text = 'Hit Effect',
-		flag = 'hit_effect',
-		side = 'left'
+	local HitEffectSection = TabFrame1:NewSection({
+		Title = "Hit Effect",
+		Icon = "rbxassetid://7743869054",
+		Position = "Left"
+	})
+
+	HitEffectSection:NewToggle({
+		Title = "Enable Hit Effect",
+		Default = false,
+		Callback = function(tr)
+			print("Hit Effect Enabled:", tr)
+		end
 	})
 end
+
+local TabFrame2 = Windows:NewTab({
+	Title = "Misc",
+	Description = "Here Y'go Misc.",
+	Icon = "rbxassetid://7733960981"
+})
 
 --// auto rewards
 
@@ -1134,16 +1237,18 @@ end
 
 --// animations
 
-local animations = misc.create_module({
-	text = 'Animations',
-	flag = 'animations',
-	side = 'right'
-})
+do
+	local animations = misc.create_module({
+		text = 'Animations',
+		flag = 'animations',
+		side = 'right'
+	})
 
-local smart_animations = animations.create_toggle({
-	title = 'Smart',
-	flag = 'smart_animations'
-})
+	local smart_animations = animations.create_toggle({
+		title = 'Smart',
+		flag = 'smart_animations'
+	})
+end
 
 local dropdown_emotes_table = {}
 local emote_instances = {}
