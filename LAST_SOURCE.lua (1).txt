@@ -272,8 +272,7 @@ function Player:get_closest_player_to_cursor()
 end
 
 function AutoParry.get_parry_remote()
-	for _, object in { cloneref(game:GetService('AdService')), cloneref(game:GetService('SocialService')) }  do
-		local temp_remote = game:GetService("VirtualUser"):WaitForChild("\n\n\n\n\n")
+	local temp_remote = game:GetService("VirtualUser"):WaitForChild("\n\n\n\n\n")
 
     if not temp_remote then
         return
@@ -1142,7 +1141,7 @@ do
 	})
 end
 
-local TabFrame2 = Windows:NewTab({
+local misc = Windows:NewTab({
 	Title = "Misc",
 	Description = "Here Y'go Misc.",
 	Icon = "rbxassetid://7733960981"
@@ -2339,3 +2338,5 @@ task.delay(30, function()
         notify.draw_notify('[Warning]: Critically slow connection speed, delays ensured.', 15)
     end
 end)
+
+print("Succesfull All Loaded")
