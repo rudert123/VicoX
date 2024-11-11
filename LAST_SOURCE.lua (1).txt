@@ -1147,91 +1147,91 @@ local TabFrame2 = Windows:NewTab({
 	Icon = "rbxassetid://7733960981"
 })
 
--- Membuat modul Auto Rewards
+--// Auto Rewards
 do
-	local auto_rewards = TabFrame2:create_module({
-		text = 'Auto Rewards',
-		flag = 'auto_rewards',
-		side = 'right' -- Menempatkan modul di sisi kanan
+	local auto_rewards = TabFrame2:NewSection({
+		Title = 'Auto Rewards',
+		Flag = 'auto_rewards',
+		Position = 'right' -- Menempatkan modul di sisi kanan
 	})
 end
 
--- Membuat modul Strafe
+--// Strafe
 do
-	local strafe = TabFrame2:create_module({
-		text = 'Strafe',
-		flag = 'strafe',
-		side = 'left' -- Menempatkan modul di sisi kiri
+	local strafe = TabFrame2:NewSection({
+		Title = 'Strafe',
+		Flag = 'strafe',
+		Position = 'left' -- Menempatkan modul di sisi kiri
 	})
 
-	-- Slider untuk mengatur kecepatan Strafe
-	local strafe_speed = strafe:create_slider({
-		value = 50,
-		title = 'Speed',
-		flag = 'strafe_speed' -- Flag untuk slider kecepatan Strafe
+	-- Slider untuk mengatur kecepatan strafe
+	local strafe_speed = strafe:NewSlider({
+		Value = 50,
+		Title = 'Speed',
+		Flag = 'strafe_speed' -- Flag untuk slider kecepatan strafe
 	})
 end
 
--- Membuat modul Personnel Detector
+--// Personnel Detector
 do
-	local personnel_detector = TabFrame2:create_module({
-		text = 'Personnel Detector',
-		flag = 'personnel_detector',
-		side = 'right' -- Menempatkan modul di sisi kanan
+	local personnel_detector = TabFrame2:NewSection({
+		Title = 'Personnel Detector',
+		Flag = 'personnel_detector',
+		Position = 'right' -- Menempatkan modul di sisi kanan
 	})
 
 	-- Toggle untuk auto leave
-	local personnel_detector_auto_leave = personnel_detector:create_toggle({
-		title = 'Auto Leave',
-		flag = 'personnel_detector_auto_leave' -- Flag untuk toggle Auto Leave
+	local personnel_detector_auto_leave = personnel_detector:NewToggle({
+		Title = 'Auto Leave',
+		Flag = 'personnel_detector_auto_leave' -- Flag untuk toggle Auto Leave
 	})
 end
 
--- Membuat modul Gravity
+--// Gravity
 do
-	local gravity = TabFrame2:create_module({
-		text = 'Gravity',
-		flag = 'gravity',
-		side = 'left' -- Menempatkan modul di sisi kiri
+	local gravity = TabFrame2:NewSection({
+		Title = 'Gravity',
+		Flag = 'gravity',
+		Position = 'left' -- Menempatkan modul di sisi kiri
 	})
 
 	-- Slider untuk mengatur kekuatan gravitasi
-	local gravity_strength = gravity:create_slider({
-		value = 50,
-		title = 'Gravity Strength',
-		flag = 'gravity_strength' -- Flag untuk slider kekuatan gravitasi
+	local gravity_strength = gravity:NewSlider({
+		Value = 50,
+		Title = 'Gravity Strength',
+		Flag = 'gravity_strength' -- Flag untuk slider kekuatan gravitasi
 	})
 end
 
--- Membuat modul Camera
+--// Camera
 do
-	local camera = TabFrame2:create_module({
-		text = 'Camera',
-		flag = 'camera',
-		side = 'right' -- Menempatkan modul di sisi kanan
+	local camera = TabFrame2:NewSection({
+		Title = 'Camera',
+		Flag = 'camera',
+		Position = 'right' -- Menempatkan modul di sisi kanan
 	})
 
 	-- Slider untuk mengatur Field Of View (FOV)
-	local field_of_view = camera:create_slider({
-		value = 70,
-		title = 'Field Of View',
-		flag = 'field_of_view' -- Flag untuk slider FOV
+	local field_of_view = camera:NewSlider({
+		Value = 70,
+		Title = 'Field Of View',
+		Flag = 'field_of_view' -- Flag untuk slider FOV
 	})
 end
 
--- Membuat modul Ability Vulnerability
+--// Ability Vulnerability
 do
-	local ability_vulnerability = TabFrame2:create_module({
-		text = 'Ability Vulnerability',
-		flag = 'ability_vulnerability',
-		side = 'left' -- Menempatkan modul di sisi kiri
+	local ability_vulnerability = TabFrame2:NewSection({
+		Title = 'Ability Vulnerability',
+		Flag = 'ability_vulnerability',
+		Position = 'left' -- Menempatkan modul di sisi kiri
 	})
 
 	-- Dropdown untuk memilih mode kemampuan
-	local ability_vulnerability_mode = ability_vulnerability:create_dropdown({
-		title = 'Mode',
-		flag = 'ability_vulnerability_mode', -- Flag untuk dropdown mode kemampuan
-		mods = {
+	local ability_vulnerability_mode = ability_vulnerability:NewDropdown({
+		Title = 'Mode',
+		Flag = 'ability_vulnerability_mode', -- Flag untuk dropdown mode kemampuan
+		Mods = {
 			'Continuity Zero',
 			'Quad Jump',
 			'Quasar' -- Pilihan mode untuk dropdown
@@ -1239,18 +1239,18 @@ do
 	})
 end
 
--- Membuat modul Animations
+--// Animations
 do
-	local animations = TabFrame2:create_module({
-		text = 'Animations',
-		flag = 'animations',
-		side = 'right' -- Menempatkan modul di sisi kanan
+	local animations = TabFrame2:NewSection({
+		Title = 'Animations',
+		Flag = 'animations',
+		Position = 'right' -- Menempatkan modul di sisi kanan
 	})
 
 	-- Toggle untuk smart animations
-	local smart_animations = animations:create_toggle({
-		title = 'Smart Animations',
-		flag = 'smart_animations' -- Flag untuk toggle Smart Animations
+	local smart_animations = animations:NewToggle({
+		Title = 'Smart Animations',
+		Flag = 'smart_animations' -- Flag untuk toggle Smart Animations
 	})
 end
 
