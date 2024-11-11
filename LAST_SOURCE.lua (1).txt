@@ -20,10 +20,12 @@ end
 
 local NothingLibrary = loadstring(game:HttpGetAsync('https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NOTHING/main/source.lua'))();
 local crypter = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Egor-Skriptunoff/pure_lua_SHA/master/sha2.lua'), true))()
-local notify = NothingLibrary.Notification();
-notify.__init({
-	parent = cloneref(game:GetService('CoreGui'))
+local Notification = NothingLibrary.Notification()
+
+Notification:show({
+    parent = cloneref(game:GetService('CoreGui'))
 })
+
 
 setfpscap(200)
 
