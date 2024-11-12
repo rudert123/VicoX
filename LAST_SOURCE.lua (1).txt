@@ -18,7 +18,6 @@ if not game:IsLoaded() then
     game.Loaded:Wait()
 end
 
-local AutoParry.get_parry_remote
 local NothingLibrary = loadstring(game:HttpGetAsync('https://raw.githubusercontent.com/3345-c-a-t-s-u-s/NOTHING/main/source.lua'))();
 local crypter = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Egor-Skriptunoff/pure_lua_SHA/master/sha2.lua'), true))()
 local notify = NothingLibrary.Notification();
