@@ -836,7 +836,7 @@ do
         Default = false, 
         Callback = function(tr)
             if tr then
-                auto_parry_rotation()  -- Menjalankan fungsi jika toggle diaktifkan
+                auto_parry_rotation()  
             end
             print("Auto Parry Rotation:", tr)
         end
@@ -849,7 +849,7 @@ do
         Max = 10,
         Default = 5,
         Callback = function(value)
-            auto_parry_rotation_acuity(value)  -- Menjalankan fungsi dengan nilai slider
+            auto_parry_rotation_acuity(value) 
             print("Auto Parry Rotation Acuity:", value)
         end
     })
@@ -860,7 +860,7 @@ do
         Data = {"Accelerated", "Backwards", "Linear", "Camera", "Random"},
         Default = "Linear",
         Callback = function(selected)
-            curve_method(selected)  -- Menjalankan fungsi dengan metode yang dipilih
+            curve_method(selected) 
             print("Selected Curve Method:", selected)
         end
     })
@@ -870,7 +870,7 @@ end
 do
 	local WinSoundSection = TabFrame:NewSection({
 		Title = "Win Sound",
-		Icon = "rbxassetid://7743869054", -- gunakan ikon yang sesuai jika ada
+		Icon = "rbxassetid://7743869054",
 		Position = "Right"
 	})
 
@@ -879,7 +879,7 @@ do
 		Default = false,
 		Callback = function(tr)
 			if tr then
-				win_sound()  -- Menjalankan fungsi jika toggle diaktifkan
+				win_sound()  
 			end
 			print("Win Sound Enabled:", tr)
 		end
@@ -890,7 +890,7 @@ end
 do
 	local HitSoundSection = TabFrame:NewSection({
 		Title = "Hit Sound",
-		Icon = "rbxassetid://7743869054", -- gunakan ikon yang sesuai jika ada
+		Icon = "rbxassetid://7743869054",
 		Position = "Right"
 	})
 
@@ -899,7 +899,7 @@ do
 		Default = false,
 		Callback = function(tr)
 			if tr then
-				hit_sound()  -- Menjalankan fungsi jika toggle diaktifkan
+				hit_sound() 
 			end
 			print("Hit Sound Enabled:", tr)
 		end
@@ -910,7 +910,7 @@ end
 do
 	local NoSlowSection = TabFrame:NewSection({
 		Title = "No Slow",
-		Icon = "rbxassetid://7743869054", -- gunakan ikon yang sesuai jika ada
+		Icon = "rbxassetid://7743869054",
 		Position = "Right"
 	})
 
@@ -919,7 +919,7 @@ do
 		Default = false,
 		Callback = function(tr)
 			if tr then
-				no_slow()  -- Menjalankan fungsi jika toggle diaktifkan
+				no_slow()
 			end
 			print("No Slow Enabled:", tr)
 		end
