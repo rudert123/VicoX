@@ -2187,8 +2187,8 @@ local function look_at(primary_part, position, delta, radians)
     primary_part.CFrame = CFrame.lookAt(primary_part.Position, primary_part.Position + lerp_vector)
 end
 
-ConnectionsManager['auto_parry_rotation'] = RunService.HeartBeat:Connect(function()
-	local auto_parry_rotation_enabled = interface.flags['auto_parry_rotation']
+ConnectionsManager['auto_parry'] = RunService.PostSimulation:Connect(function()
+	local auto_parry_enabled = interface.flags['auto_parry']
 
 	if not auto_parry_rotation_enabled then
 		return
