@@ -819,42 +819,54 @@ do
         Position = "Left"
     })
 
-    -- Toggle for auto parry rotation
     AutoSection:NewToggle({
-        Title = "Rotation",
-        Default = false,  -- Nilai default toggle (false = nonaktif, true = aktif)
+        Title = "Autoparry",
+        Default = false, 
         Callback = function(tr)
-            -- Mengubah nilai interface.flags['auto_parry'] berdasarkan status toggle
-            interface.flags['auto_parry'] = tr  -- tr adalah nilai boolean (true/false)
-            print("Auto Parry Rotation/parry:", tr)
+            if tr then
+                auto_parry()
+            end
+            print("AutoParry:", tr)
         end
     })
 
-    -- Slider for auto parry rotation acuity
+    -- Toggle untuk auto parry rotation
+    AutoSection:NewToggle({
+        Title = "Rotation",
+        Default = false, 
+        Callback = function(tr)
+            if tr then
+                auto_parry_rotation()  -- Menjalankan fungsi jika toggle diaktifkan
+            end
+            print("Auto Parry Rotation:", tr)
+        end
+    })
+
+    -- Slider untuk auto parry rotation acuity
     AutoSection:NewSlider({
         Title = "Acuity",
         Min = 1,
         Max = 10,
         Default = 5,
         Callback = function(value)
+            auto_parry_rotation_acuity(value)  -- Menjalankan fungsi dengan nilai slider
             print("Auto Parry Rotation Acuity:", value)
         end
     })
 
-    -- Dropdown for selecting curve method
+    -- Dropdown untuk memilih metode curve
     AutoSection:NewDropdown({
         Title = "Curve Method",
         Data = {"Accelerated", "Backwards", "Linear", "Camera", "Random"},
         Default = "Linear",
         Callback = function(selected)
+            curve_method(selected)  -- Menjalankan fungsi dengan metode yang dipilih
             print("Selected Curve Method:", selected)
         end
     })
 end
 
-
 --// Win Sound
-
 do
 	local WinSoundSection = TabFrame:NewSection({
 		Title = "Win Sound",
@@ -866,13 +878,15 @@ do
 		Title = "Enable Win Sound",
 		Default = false,
 		Callback = function(tr)
+			if tr then
+				win_sound()  -- Menjalankan fungsi jika toggle diaktifkan
+			end
 			print("Win Sound Enabled:", tr)
 		end
 	})
 end
 
 --// Hit Sound
-
 do
 	local HitSoundSection = TabFrame:NewSection({
 		Title = "Hit Sound",
@@ -884,13 +898,15 @@ do
 		Title = "Enable Hit Sound",
 		Default = false,
 		Callback = function(tr)
+			if tr then
+				hit_sound()  -- Menjalankan fungsi jika toggle diaktifkan
+			end
 			print("Hit Sound Enabled:", tr)
 		end
 	})
 end
 
 --// No Slow
-
 do
 	local NoSlowSection = TabFrame:NewSection({
 		Title = "No Slow",
@@ -902,6 +918,9 @@ do
 		Title = "Enable No Slow",
 		Default = false,
 		Callback = function(tr)
+			if tr then
+				no_slow()  -- Menjalankan fungsi jika toggle diaktifkan
+			end
 			print("No Slow Enabled:", tr)
 		end
 	})
@@ -926,6 +945,7 @@ do
 		Title = "Enable No Render",
 		Default = false,
 		Callback = function(tr)
+                        no_render
 			print("No Render Enabled:", tr)
 		end
 	})
@@ -934,6 +954,7 @@ do
 		Title = "Smart No Render",
 		Default = false,
 		Callback = function(tr)
+                        smart_no_render
 			print("Smart No Render Enabled:", tr)
 		end
 	})
@@ -941,11 +962,23 @@ end
 
 --// Shaders
 
+--// Shaders
 do
 	local ShadersSection = TabFrame1:NewSection({
 		Title = "Shaders",
 		Icon = "rbxassetid://7743869054",
 		Position = "Left"
+	})
+
+    ShadersSection:NewToggle({
+		Title = "Shader",
+		Default = false,
+		Callback = function(tr)
+			if tr then
+				shaders()  -- Menjalankan fungsi jika toggle diaktifkan
+			end
+			print("Shader:", tr)
+		end
 	})
 
 	ShadersSection:NewSlider({
@@ -954,6 +987,7 @@ do
 		Max = 100,
 		Default = 50,
 		Callback = function(value)
+			shaders_intensity(value)  -- Menjalankan fungsi dengan nilai slider
 			print("Shader Intensity:", value)
 		end
 	})
@@ -964,6 +998,7 @@ do
 		Max = 100,
 		Default = 70,
 		Callback = function(value)
+			shaders_size(value)  -- Menjalankan fungsi dengan nilai slider
 			print("Shader Size:", value)
 		end
 	})
@@ -974,6 +1009,7 @@ do
 		Max = 100,
 		Default = 100,
 		Callback = function(value)
+			shaders_threshold(value)  -- Menjalankan fungsi dengan nilai slider
 			print("Shader Threshold:", value)
 		end
 	})
@@ -984,6 +1020,7 @@ do
 		Max = 100,
 		Default = 100,
 		Callback = function(value)
+			environment_diffuse_scale(value)  -- Menjalankan fungsi dengan nilai slider
 			print("Diffuse Scale:", value)
 		end
 	})
@@ -994,6 +1031,7 @@ do
 		Max = 100,
 		Default = 100,
 		Callback = function(value)
+			environment_specular_scale(value)  -- Menjalankan fungsi dengan nilai slider
 			print("Specular Scale:", value)
 		end
 	})
@@ -1002,6 +1040,9 @@ do
 		Title = "Enable Ray Tracing",
 		Default = false,
 		Callback = function(tr)
+			if tr then
+				ray_tracing()  -- Menjalankan fungsi jika toggle diaktifkan
+			end
 			print("Ray Tracing Enabled:", tr)
 		end
 	})
@@ -1016,12 +1057,24 @@ do
 		Position = "Right"
 	})
 
+    AmbientSection:NewToggle({
+		Title = "Shader",
+		Default = false,
+		Callback = function(tr)
+			if tr then
+				ambient()  -- Menjalankan fungsi jika toggle diaktifkan
+			end
+			print("Shader:", tr)
+		end
+	})
+
 	AmbientSection:NewSlider({
 		Title = "Density",
 		Min = 0,
 		Max = 100,
 		Default = 50,
 		Callback = function(value)
+			ambient_density(value)  -- Menjalankan fungsi dengan nilai slider
 			print("Ambient Density:", value)
 		end
 	})
@@ -1040,6 +1093,9 @@ do
 		Title = "Enable Night Mode",
 		Default = false,
 		Callback = function(tr)
+			if tr then
+				night_mode()  -- Menjalankan fungsi jika toggle diaktifkan
+			end
 			print("Night Mode Enabled:", tr)
 		end
 	})
@@ -1054,11 +1110,23 @@ do
 		Position = "Right"
 	})
 
+    PlushieSection:NewToggle({
+		Title = "Plushie",
+		Default = false,
+		Callback = function(tr)
+			if tr then
+				plushie()  -- Menjalankan fungsi jika toggle diaktifkan
+			end
+			print("Plushie XD:", tr)
+		end
+	})
+
 	PlushieSection:NewDropdown({
 		Title = "Plushie Type",
 		Data = {"Pillow", "Touhou", "Shion", "Miku", "Sino", "Soi"},
 		Default = "Pillow",
 		Callback = function(value)
+			plushie_type(value)  -- Menjalankan fungsi dengan nilai dropdown
 			print("Plushie Type Selected:", value)
 		end
 	})
@@ -1074,9 +1142,12 @@ do
 	})
 
 	ColorShiftSection:NewToggle({
-		Title = "Enable Color Shift",
+		Title = "Color Shift",
 		Default = false,
 		Callback = function(tr)
+			if tr then
+				color_shift()  -- Menjalankan fungsi jika toggle diaktifkan
+			end
 			print("Color Shift Enabled:", tr)
 		end
 	})
@@ -1092,9 +1163,23 @@ do
 	})
 
 	SkyboxSection:NewToggle({
+		Title = "SkyBox",
+		Default = false,
+		Callback = function(tr)
+			if tr then
+				skybox()  -- Menjalankan fungsi jika toggle diaktifkan
+			end
+			print("SkyBox Enabled:", tr)
+		end
+	})
+
+	SkyboxSection:NewToggle({
 		Title = "Remove Clouds",
 		Default = false,
 		Callback = function(tr)
+			if tr then
+				remove_clouds()  -- Menjalankan fungsi jika toggle diaktifkan
+			end
 			print("Remove Clouds Enabled:", tr)
 		end
 	})
@@ -1104,6 +1189,7 @@ do
 		Data = {"Anime", "Rufus", "Fantasy", "Angelic", "Clouded", "Lyfestyle", "Deepspace", "Spongebob", "Morning Mudd", "Met Tha Devil"},
 		Default = "Anime",
 		Callback = function(value)
+			skybox_type(value)  -- Menjalankan fungsi dengan nilai dropdown
 			print("Skybox Type Selected:", value)
 		end
 	})
@@ -1118,12 +1204,24 @@ do
 		Position = "Right"
 	})
 
+	TrailSection:NewToggle({
+		Title = "Trail",
+		Default = false,
+		Callback = function(tr)
+			if tr then
+				trail()  -- Menjalankan fungsi jika toggle diaktifkan
+			end
+			print("Trail Enabled:", tr)
+		end
+	})
+
 	TrailSection:NewSlider({
 		Title = "Scale",
 		Min = 0,
 		Max = 100,
 		Default = 30,
 		Callback = function(value)
+			trail_scale(value)  -- Menjalankan fungsi dengan nilai slider
 			print("Trail Scale:", value)
 		end
 	})
@@ -1142,6 +1240,9 @@ do
 		Title = "Enable Hit Effect",
 		Default = false,
 		Callback = function(tr)
+			if tr then
+				hit_effect()  -- Menjalankan fungsi jika toggle diaktifkan
+			end
 			print("Hit Effect Enabled:", tr)
 		end
 	})
@@ -1155,6 +1256,7 @@ local TabFrame2 = Windows:NewTab({
 })
 
 --// Auto rewards
+
 do
     local auto_rewards = TabFrame2:NewSection({
         Title = 'Auto Rewards',
@@ -1165,18 +1267,33 @@ do
     auto_rewards:NewToggle({
         Title = "Enable Auto Rewards",
         Default = false,
-        Callback = function(value)
-            print("Auto Rewards toggled:", value)
+        Callback = function(tr)
+            if tr then
+                auto_rewards()  -- Menjalankan fungsi jika toggle diaktifkan
+            end
+            print("Auto Rewards toggled:", tr)
         end
     })
 end
 
 --// Strafe
+
 do
     local strafe = TabFrame2:NewSection({
         Title = 'Strafe',
         Icon = 'rbxassetid://7743869054',
         Position = 'left'
+    })
+
+    strafe:NewToggle({
+        Title = "Enable Strafe",
+        Default = false,
+        Callback = function(tr)
+            if tr then
+                strafe()  -- Menjalankan fungsi saat toggle diaktifkan
+            end
+            print("Strafe toggled:", tr)
+        end
     })
 
     local strafe_speed = strafe:NewSlider({
@@ -1185,12 +1302,14 @@ do
         Max = 100,
         Default = 50,
         Callback = function(value)
+            strafe_speed()  -- Menjalankan fungsi jika ada perubahan pada speed
             print("Strafe Speed:", value)
         end
     })
 end
 
 --// Personnel detector
+
 do
     local personnel_detector = TabFrame2:NewSection({
         Title = 'Personnel Detector',
@@ -1199,20 +1318,46 @@ do
     })
 
     personnel_detector:NewToggle({
+        Title = "Personnel Detect",
+        Default = false,
+        Callback = function(tr)
+            if tr then
+                personnel_detector()  -- Menjalankan fungsi saat toggle diaktifkan
+            end
+            print("Personnel Detect toggled:", tr)
+        end
+    })
+
+    personnel_detector:NewToggle({
         Title = 'Auto Leave',
         Default = false,
-        Callback = function(value)
-            print("Auto Leave toggled:", value)
+        Callback = function(tr)
+            if tr then
+                personnel_detector_auto_leave()  -- Menjalankan fungsi saat toggle diaktifkan
+            end
+            print("Auto Leave toggled:", tr)
         end
     })
 end
 
 --// Gravity
+
 do
     local gravity = TabFrame2:NewSection({
         Title = 'Gravity',
         Icon = 'rbxassetid://7743869054',
         Position = 'left'
+    })
+
+    gravity:NewToggle({
+        Title = "Gravity",
+        Default = false,
+        Callback = function(tr)
+            if tr then
+                gravity()  -- Menjalankan fungsi saat toggle diaktifkan
+            end
+            print("Gravity HWD:", tr)
+        end
     })
 
     local gravity_strength = gravity:NewSlider({
@@ -1221,17 +1366,30 @@ do
         Max = 100,
         Default = 50,
         Callback = function(value)
+            gravity_strength(value)  -- Menjalankan fungsi saat slider digeser
             print("Gravity Strength:", value)
         end
     })
 end
 
 --// Camera
+
 do
     local camera = TabFrame2:NewSection({
         Title = 'Camera',
         Icon = 'rbxassetid://7743869054',
         Position = 'right'
+    })
+
+    camera:NewToggle({
+        Title = "Camera FOV",
+        Default = false,
+        Callback = function(tr)
+            if tr then
+                camera()  -- Menjalankan fungsi saat toggle diaktifkan
+            end
+            print("Camera FOV:", tr)
+        end
     })
 
     local field_of_view = camera:NewSlider({
@@ -1240,30 +1398,46 @@ do
         Max = 120,
         Default = 70,
         Callback = function(value)
+            field_of_view(value)  -- Menjalankan fungsi saat slider digeser
             print("Field Of View:", value)
         end
     })
 end
 
 --// Ability vulnerability
+
 do
     local ability_vulnerability = TabFrame2:NewSection({
         Title = 'Ability Vulnerability',
         Icon = 'rbxassetid://7743869054',
         Position = 'left'
     })
-    
+
+    ability_vulnerability:NewToggle({
+        Title = "Enable Ability Vulnerability",
+        Default = false,
+        Callback = function(tr)
+            if tr then
+                ability_vulnerability()  -- Menjalankan fungsi saat toggle diaktifkan
+            end
+            print("Ability V2:", tr)
+        end
+    })
+
     local ability_vulnerability_mode = ability_vulnerability:NewDropdown({
         Title = "Mode",
         Data = {"Continuity Zero", "Quad Jump", "Quasar"},
         Default = "Continuity Zero",
         Callback = function(value)
+            ability_vulnerability_mode(value)  -- Menjalankan fungsi saat dropdown dipilih
             print("Ability Vulnerability Mode Selected:", value)
         end
     })
 end
 
+
 --// Animations
+
 do
     local animations = TabFrame2:NewSection({
         Title = 'Animations',
@@ -1275,6 +1449,9 @@ do
         Title = 'Smart Animations',
         Default = false,
         Callback = function(value)
+            if value then
+                smart_animations()  -- Menjalankan fungsi saat toggle diaktifkan
+            end
             print("Smart Animations toggled:", value)
         end
     })
@@ -1303,7 +1480,13 @@ do
             Data = dropdown_emotes_table,
             Default = dropdown_emotes_table[1],  -- Default to the first choice if available
             Callback = function(value)
-                print("Animation Selected:", value)
+                local emote_instance = emote_instances[value]
+                if emote_instance then
+                    -- Handle the selected animation here
+                    print("Animation Selected:", value)
+                else
+                    print("Emote instance not found for:", value)
+                end
             end
         })
     else
@@ -2225,7 +2408,7 @@ ConnectionsManager['auto_parry_rotation'] = RunService.HeartBeat:Connect(functio
 	look_at(character.PrimaryPart, ball_properties.rotation, auto_parry_rotation_acuity_value, 25)
 end)
 
-ConnectionsManager['auto_parry'] = RunService.HeartBeat:Connect(function()
+ConnectionsManager['auto_parry'] = RunService.PostSimulation:Connect(function()
 	local auto_parry_enabled = interface.flags['auto_parry']
 
 	if not auto_parry_enabled then
