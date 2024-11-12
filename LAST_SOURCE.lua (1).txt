@@ -24,8 +24,8 @@ local notify = NothingLibrary.Notification();
 
 notify.new({
         Title = "VicoX Is Fetch.",
-	Description = "welcome to Vico script i hope you like it",
-	Duration = 5,
+	Description = "welcome to Vico script i hope you like it!",
+	Duration = 10,
 	Icon = "rbxassetid://8997385628"
 })
 
