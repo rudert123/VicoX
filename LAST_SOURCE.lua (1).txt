@@ -23,13 +23,13 @@ local crypter = loadstring(game:HttpGet(('https://raw.githubusercontent.com/Egor
 local notify = NothingLibrary.Notification();
 
 notify.new({
-        Title = "VicoX Is Fetch.",
+        Title = "VicoX Is Fetch!.",
 	Description = "welcome to Vico script i hope you like it!",
 	Duration = 10,
 	Icon = "rbxassetid://8997385628"
 })
 
-setfpscap(200)
+setfpscap(120)
 
 local LocalPlayer = Players.LocalPlayer
 local client_id = RbxAnalyticsService:GetClientId()
