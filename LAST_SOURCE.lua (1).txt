@@ -2092,7 +2092,11 @@ ReplicatedStorage.Remotes.WinnerText.OnClientEvent:Connect(function(winner_text:
 				custom_win_audio.SoundId = getcustomasset('Nurysium/assets/win_round.mp3')
 				custom_win_audio:Play()
 			else
-				notify.draw_notify('[Nurysium]: win sound is missing! add file in Nurysium/assets/win_round.mp3', 15)
+				notify.new({
+        Title = "⚠️[Warning]⚠️",
+        Description = "win sound is missing! add file in Nurysium/assets/win_round.mp3', 15).",
+        Duration = 15,
+        Icon = "rbxassetid://8997385628"
 			end
 		end
 	end
@@ -2143,7 +2147,7 @@ ReplicatedStorage.Remotes.ParrySuccess.OnClientEvent:Connect(function()
 			custom_audio:Play()
 		else
 			notify.new({
-        Title = "[Warning]",
+        Title = "⚠️[Warning]⚠️",
         Description = "Assets Was No Found Id Sound.",
         Duration = 15,
         Icon = "rbxassetid://8997385628"
@@ -2385,14 +2389,14 @@ task.delay(30, function()
 -- Cek koneksi pemain dan tampilkan notifikasi sesuai dengan ping
 if player_ping > 100 and player_ping < 200 then
     notify.new({
-        Title = "[Warning]",
+        Title = "⚠️[Warning]⚠️",
         Description = "Low connection speed, delays may occur.",
         Duration = 5,
         Icon = "rbxassetid://8997385628"
     })
 elseif player_ping >= 200 then
     notify.new({
-        Title = "[Warning]",
+        Title = "⚠️[Warning]⚠️",
         Description = "Critically slow connection speed, delays ensured.",
         Duration = 5,
         Icon = "rbxassetid://8997385628"
