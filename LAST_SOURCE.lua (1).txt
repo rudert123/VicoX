@@ -275,17 +275,19 @@ function Player:get_closest_player_to_cursor()
 end
 
 function AutoParry.get_parry_remote()
-    local temp_remote = game:GetService('VirtualUser'):WaitForChild('\n\n\n\n\n')
-     
-    if not temp_remote then
-        return
-    end
+	for _, object in { cloneref(game:GetService('AdService')), cloneref(game:GetService('SocialService')) }  do
+		local temp_remote = object:FindFirstChildOfClass('RemoteEvent')
 
-    if not temp_remote:IsA('RemoteEvent') then
-        return
-    end
+		if not temp_remote then
+			continue
+		end
 
-    AutoParry.ball.properties.parry_remote = temp_remote
+		if not temp_remote.Name:find('\n\n\n\n\n') then
+			continue
+		end
+
+		AutoParry.ball.properties.parry_remote = temp_remote
+	end
 end
 
 AutoParry.get_parry_remote()
