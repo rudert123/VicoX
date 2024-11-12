@@ -810,6 +810,7 @@ local TabFrame = Windows:NewTab({
 	Icon = "rbxassetid://7733960981"
 })
 
+
 --// auto parry section
 
 do
