@@ -821,57 +821,54 @@ do
     })
 
     AutoSection:NewToggle({
-        Title = "Autoparry",
-        Default = false, 
-        Callback = function(tr)
-            if tr then
-                auto_parry()
-            end
-            print("AutoParry:", tr)
-        end
-    })
+		Title = "AutoParry",
+		Default = false,
+		Callback = function(state)
+                auto_parry_enabled = state
+	        print("Autoparry:", state)
+		end
+	})
 
-    -- Toggle untuk auto parry rotation
+    -- Toggle for auto parry rotation
     AutoSection:NewToggle({
         Title = "Rotation",
-        Default = false, 
+        Default = false,  -- Nilai default toggle (false = nonaktif, true = aktif)
         Callback = function(tr)
-            if tr then
-                auto_parry_rotation()  
-            end
-            print("Auto Parry Rotation:", tr)
+            -- Mengubah nilai interface.flags['auto_parry'] berdasarkan status toggle
+            interface.flags['auto_parry'] = tr  -- tr adalah nilai boolean (true/false)
+            print("Auto Parry Rotation/parry:", tr)
         end
     })
 
-    -- Slider untuk auto parry rotation acuity
+    -- Slider for auto parry rotation acuity
     AutoSection:NewSlider({
         Title = "Acuity",
         Min = 1,
         Max = 10,
         Default = 5,
         Callback = function(value)
-            auto_parry_rotation_acuity(value) 
             print("Auto Parry Rotation Acuity:", value)
         end
     })
 
-    -- Dropdown untuk memilih metode curve
+    -- Dropdown for selecting curve method
     AutoSection:NewDropdown({
         Title = "Curve Method",
         Data = {"Accelerated", "Backwards", "Linear", "Camera", "Random"},
         Default = "Linear",
         Callback = function(selected)
-            curve_method(selected) 
             print("Selected Curve Method:", selected)
         end
     })
 end
 
+
 --// Win Sound
+
 do
 	local WinSoundSection = TabFrame:NewSection({
 		Title = "Win Sound",
-		Icon = "rbxassetid://7743869054",
+		Icon = "rbxassetid://7743869054", -- gunakan ikon yang sesuai jika ada
 		Position = "Right"
 	})
 
@@ -879,19 +876,17 @@ do
 		Title = "Enable Win Sound",
 		Default = false,
 		Callback = function(tr)
-			if tr then
-				win_sound()  
-			end
 			print("Win Sound Enabled:", tr)
 		end
 	})
 end
 
 --// Hit Sound
+
 do
 	local HitSoundSection = TabFrame:NewSection({
 		Title = "Hit Sound",
-		Icon = "rbxassetid://7743869054",
+		Icon = "rbxassetid://7743869054", -- gunakan ikon yang sesuai jika ada
 		Position = "Right"
 	})
 
@@ -899,19 +894,17 @@ do
 		Title = "Enable Hit Sound",
 		Default = false,
 		Callback = function(tr)
-			if tr then
-				hit_sound() 
-			end
 			print("Hit Sound Enabled:", tr)
 		end
 	})
 end
 
 --// No Slow
+
 do
 	local NoSlowSection = TabFrame:NewSection({
 		Title = "No Slow",
-		Icon = "rbxassetid://7743869054",
+		Icon = "rbxassetid://7743869054", -- gunakan ikon yang sesuai jika ada
 		Position = "Right"
 	})
 
@@ -919,9 +912,6 @@ do
 		Title = "Enable No Slow",
 		Default = false,
 		Callback = function(tr)
-			if tr then
-				no_slow()
-			end
 			print("No Slow Enabled:", tr)
 		end
 	})
@@ -946,7 +936,6 @@ do
 		Title = "Enable No Render",
 		Default = false,
 		Callback = function(tr)
-                        no_render
 			print("No Render Enabled:", tr)
 		end
 	})
@@ -955,29 +944,18 @@ do
 		Title = "Smart No Render",
 		Default = false,
 		Callback = function(tr)
-                        smart_no_render
 			print("Smart No Render Enabled:", tr)
 		end
 	})
 end
 
 --// Shaders
+
 do
 	local ShadersSection = TabFrame1:NewSection({
 		Title = "Shaders",
 		Icon = "rbxassetid://7743869054",
 		Position = "Left"
-	})
-
-    ShadersSection:NewToggle({
-		Title = "Shader",
-		Default = false,
-		Callback = function(tr)
-			if tr then
-				shaders()  -- Menjalankan fungsi jika toggle diaktifkan
-			end
-			print("Shader:", tr)
-		end
 	})
 
 	ShadersSection:NewSlider({
@@ -986,7 +964,6 @@ do
 		Max = 100,
 		Default = 50,
 		Callback = function(value)
-			shaders_intensity(value)  -- Menjalankan fungsi dengan nilai slider
 			print("Shader Intensity:", value)
 		end
 	})
@@ -997,7 +974,6 @@ do
 		Max = 100,
 		Default = 70,
 		Callback = function(value)
-			shaders_size(value)  -- Menjalankan fungsi dengan nilai slider
 			print("Shader Size:", value)
 		end
 	})
@@ -1008,7 +984,6 @@ do
 		Max = 100,
 		Default = 100,
 		Callback = function(value)
-			shaders_threshold(value)  -- Menjalankan fungsi dengan nilai slider
 			print("Shader Threshold:", value)
 		end
 	})
@@ -1019,7 +994,6 @@ do
 		Max = 100,
 		Default = 100,
 		Callback = function(value)
-			environment_diffuse_scale(value)  -- Menjalankan fungsi dengan nilai slider
 			print("Diffuse Scale:", value)
 		end
 	})
@@ -1030,7 +1004,6 @@ do
 		Max = 100,
 		Default = 100,
 		Callback = function(value)
-			environment_specular_scale(value)  -- Menjalankan fungsi dengan nilai slider
 			print("Specular Scale:", value)
 		end
 	})
@@ -1039,9 +1012,6 @@ do
 		Title = "Enable Ray Tracing",
 		Default = false,
 		Callback = function(tr)
-			if tr then
-				ray_tracing()  -- Menjalankan fungsi jika toggle diaktifkan
-			end
 			print("Ray Tracing Enabled:", tr)
 		end
 	})
@@ -1056,24 +1026,12 @@ do
 		Position = "Right"
 	})
 
-    AmbientSection:NewToggle({
-		Title = "Shader",
-		Default = false,
-		Callback = function(tr)
-			if tr then
-				ambient()  -- Menjalankan fungsi jika toggle diaktifkan
-			end
-			print("Shader:", tr)
-		end
-	})
-
 	AmbientSection:NewSlider({
 		Title = "Density",
 		Min = 0,
 		Max = 100,
 		Default = 50,
 		Callback = function(value)
-			ambient_density(value)  -- Menjalankan fungsi dengan nilai slider
 			print("Ambient Density:", value)
 		end
 	})
@@ -1092,9 +1050,6 @@ do
 		Title = "Enable Night Mode",
 		Default = false,
 		Callback = function(tr)
-			if tr then
-				night_mode()  -- Menjalankan fungsi jika toggle diaktifkan
-			end
 			print("Night Mode Enabled:", tr)
 		end
 	})
@@ -1109,23 +1064,11 @@ do
 		Position = "Right"
 	})
 
-    PlushieSection:NewToggle({
-		Title = "Plushie",
-		Default = false,
-		Callback = function(tr)
-			if tr then
-				plushie()  -- Menjalankan fungsi jika toggle diaktifkan
-			end
-			print("Plushie XD:", tr)
-		end
-	})
-
 	PlushieSection:NewDropdown({
 		Title = "Plushie Type",
 		Data = {"Pillow", "Touhou", "Shion", "Miku", "Sino", "Soi"},
 		Default = "Pillow",
 		Callback = function(value)
-			plushie_type(value)  -- Menjalankan fungsi dengan nilai dropdown
 			print("Plushie Type Selected:", value)
 		end
 	})
@@ -1141,12 +1084,9 @@ do
 	})
 
 	ColorShiftSection:NewToggle({
-		Title = "Color Shift",
+		Title = "Enable Color Shift",
 		Default = false,
 		Callback = function(tr)
-			if tr then
-				color_shift()  -- Menjalankan fungsi jika toggle diaktifkan
-			end
 			print("Color Shift Enabled:", tr)
 		end
 	})
@@ -1162,23 +1102,9 @@ do
 	})
 
 	SkyboxSection:NewToggle({
-		Title = "SkyBox",
-		Default = false,
-		Callback = function(tr)
-			if tr then
-				skybox()  -- Menjalankan fungsi jika toggle diaktifkan
-			end
-			print("SkyBox Enabled:", tr)
-		end
-	})
-
-	SkyboxSection:NewToggle({
 		Title = "Remove Clouds",
 		Default = false,
 		Callback = function(tr)
-			if tr then
-				remove_clouds()  -- Menjalankan fungsi jika toggle diaktifkan
-			end
 			print("Remove Clouds Enabled:", tr)
 		end
 	})
@@ -1188,7 +1114,6 @@ do
 		Data = {"Anime", "Rufus", "Fantasy", "Angelic", "Clouded", "Lyfestyle", "Deepspace", "Spongebob", "Morning Mudd", "Met Tha Devil"},
 		Default = "Anime",
 		Callback = function(value)
-			skybox_type(value)  -- Menjalankan fungsi dengan nilai dropdown
 			print("Skybox Type Selected:", value)
 		end
 	})
@@ -1203,24 +1128,12 @@ do
 		Position = "Right"
 	})
 
-	TrailSection:NewToggle({
-		Title = "Trail",
-		Default = false,
-		Callback = function(tr)
-			if tr then
-				trail()  -- Menjalankan fungsi jika toggle diaktifkan
-			end
-			print("Trail Enabled:", tr)
-		end
-	})
-
 	TrailSection:NewSlider({
 		Title = "Scale",
 		Min = 0,
 		Max = 100,
 		Default = 30,
 		Callback = function(value)
-			trail_scale(value)  -- Menjalankan fungsi dengan nilai slider
 			print("Trail Scale:", value)
 		end
 	})
@@ -1239,9 +1152,6 @@ do
 		Title = "Enable Hit Effect",
 		Default = false,
 		Callback = function(tr)
-			if tr then
-				hit_effect()  -- Menjalankan fungsi jika toggle diaktifkan
-			end
 			print("Hit Effect Enabled:", tr)
 		end
 	})
