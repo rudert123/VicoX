@@ -961,8 +961,6 @@ do
 end
 
 --// Shaders
-
---// Shaders
 do
 	local ShadersSection = TabFrame1:NewSection({
 		Title = "Shaders",
@@ -1256,7 +1254,6 @@ local TabFrame2 = Windows:NewTab({
 })
 
 --// Auto rewards
-
 do
     local auto_rewards = TabFrame2:NewSection({
         Title = 'Auto Rewards',
@@ -1267,33 +1264,18 @@ do
     auto_rewards:NewToggle({
         Title = "Enable Auto Rewards",
         Default = false,
-        Callback = function(tr)
-            if tr then
-                auto_rewards()  -- Menjalankan fungsi jika toggle diaktifkan
-            end
-            print("Auto Rewards toggled:", tr)
+        Callback = function(value)
+            print("Auto Rewards toggled:", value)
         end
     })
 end
 
 --// Strafe
-
 do
     local strafe = TabFrame2:NewSection({
         Title = 'Strafe',
         Icon = 'rbxassetid://7743869054',
         Position = 'left'
-    })
-
-    strafe:NewToggle({
-        Title = "Enable Strafe",
-        Default = false,
-        Callback = function(tr)
-            if tr then
-                strafe()  -- Menjalankan fungsi saat toggle diaktifkan
-            end
-            print("Strafe toggled:", tr)
-        end
     })
 
     local strafe_speed = strafe:NewSlider({
@@ -1302,14 +1284,12 @@ do
         Max = 100,
         Default = 50,
         Callback = function(value)
-            strafe_speed()  -- Menjalankan fungsi jika ada perubahan pada speed
             print("Strafe Speed:", value)
         end
     })
 end
 
 --// Personnel detector
-
 do
     local personnel_detector = TabFrame2:NewSection({
         Title = 'Personnel Detector',
@@ -1318,46 +1298,20 @@ do
     })
 
     personnel_detector:NewToggle({
-        Title = "Personnel Detect",
-        Default = false,
-        Callback = function(tr)
-            if tr then
-                personnel_detector()  -- Menjalankan fungsi saat toggle diaktifkan
-            end
-            print("Personnel Detect toggled:", tr)
-        end
-    })
-
-    personnel_detector:NewToggle({
         Title = 'Auto Leave',
         Default = false,
-        Callback = function(tr)
-            if tr then
-                personnel_detector_auto_leave()  -- Menjalankan fungsi saat toggle diaktifkan
-            end
-            print("Auto Leave toggled:", tr)
+        Callback = function(value)
+            print("Auto Leave toggled:", value)
         end
     })
 end
 
 --// Gravity
-
 do
     local gravity = TabFrame2:NewSection({
         Title = 'Gravity',
         Icon = 'rbxassetid://7743869054',
         Position = 'left'
-    })
-
-    gravity:NewToggle({
-        Title = "Gravity",
-        Default = false,
-        Callback = function(tr)
-            if tr then
-                gravity()  -- Menjalankan fungsi saat toggle diaktifkan
-            end
-            print("Gravity HWD:", tr)
-        end
     })
 
     local gravity_strength = gravity:NewSlider({
@@ -1366,30 +1320,17 @@ do
         Max = 100,
         Default = 50,
         Callback = function(value)
-            gravity_strength(value)  -- Menjalankan fungsi saat slider digeser
             print("Gravity Strength:", value)
         end
     })
 end
 
 --// Camera
-
 do
     local camera = TabFrame2:NewSection({
         Title = 'Camera',
         Icon = 'rbxassetid://7743869054',
         Position = 'right'
-    })
-
-    camera:NewToggle({
-        Title = "Camera FOV",
-        Default = false,
-        Callback = function(tr)
-            if tr then
-                camera()  -- Menjalankan fungsi saat toggle diaktifkan
-            end
-            print("Camera FOV:", tr)
-        end
     })
 
     local field_of_view = camera:NewSlider({
@@ -1398,46 +1339,30 @@ do
         Max = 120,
         Default = 70,
         Callback = function(value)
-            field_of_view(value)  -- Menjalankan fungsi saat slider digeser
             print("Field Of View:", value)
         end
     })
 end
 
 --// Ability vulnerability
-
 do
     local ability_vulnerability = TabFrame2:NewSection({
         Title = 'Ability Vulnerability',
         Icon = 'rbxassetid://7743869054',
         Position = 'left'
     })
-
-    ability_vulnerability:NewToggle({
-        Title = "Enable Ability Vulnerability",
-        Default = false,
-        Callback = function(tr)
-            if tr then
-                ability_vulnerability()  -- Menjalankan fungsi saat toggle diaktifkan
-            end
-            print("Ability V2:", tr)
-        end
-    })
-
+    
     local ability_vulnerability_mode = ability_vulnerability:NewDropdown({
         Title = "Mode",
         Data = {"Continuity Zero", "Quad Jump", "Quasar"},
         Default = "Continuity Zero",
         Callback = function(value)
-            ability_vulnerability_mode(value)  -- Menjalankan fungsi saat dropdown dipilih
             print("Ability Vulnerability Mode Selected:", value)
         end
     })
 end
 
-
 --// Animations
-
 do
     local animations = TabFrame2:NewSection({
         Title = 'Animations',
@@ -1449,9 +1374,6 @@ do
         Title = 'Smart Animations',
         Default = false,
         Callback = function(value)
-            if value then
-                smart_animations()  -- Menjalankan fungsi saat toggle diaktifkan
-            end
             print("Smart Animations toggled:", value)
         end
     })
@@ -1480,13 +1402,7 @@ do
             Data = dropdown_emotes_table,
             Default = dropdown_emotes_table[1],  -- Default to the first choice if available
             Callback = function(value)
-                local emote_instance = emote_instances[value]
-                if emote_instance then
-                    -- Handle the selected animation here
-                    print("Animation Selected:", value)
-                else
-                    print("Emote instance not found for:", value)
-                end
+                print("Animation Selected:", value)
             end
         })
     else
